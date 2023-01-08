@@ -10,7 +10,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <h1>React Router</h1>
+        <h1 className="text-3xl font-bold underline">Hello world!</h1>
 
         <Navigation />
 

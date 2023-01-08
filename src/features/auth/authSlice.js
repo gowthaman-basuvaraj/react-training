@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { doLogin, createUser } from './authAPI';
 
 const initialState = {
   authToken: null,
@@ -7,56 +8,6 @@ const initialState = {
   status: 'idle',
   loginError: null,
   userName: '',
-};
-
-const loginUrl = `${process.env.REACT_APP_API_BASE_URL}/auth/validate`;
-const createUserUrl = `${process.env.REACT_APP_API_BASE_URL}/auth/create`;
-const PostOptions = {
-  method: 'POST',
-};
-
-const doLogin = async ({ user, pass }) => {
-  let body = new FormData();
-  body.append('user', user);
-  body.append('pass', pass);
-
-  let step1 = await fetch(loginUrl, {
-    ...PostOptions,
-    body,
-  });
-
-  if (step1.ok) {
-    return {
-      ...(await step1.json()),
-      user,
-    };
-  } else {
-    return {
-      error: 'Login Failed',
-    };
-  }
-};
-
-const createUser = async ({ user, pass }) => {
-  let body = new FormData();
-  body.append('user', user);
-  body.append('pass', pass);
-
-  let step1 = await fetch(createUserUrl, {
-    ...PostOptions,
-    body,
-  });
-
-  if (step1.ok) {
-    return {
-      ...(await step1.json()),
-      user,
-    };
-  } else {
-    return {
-      error: 'User Creation Failed',
-    };
-  }
 };
 
 export const doLoginAsync = createAsyncThunk('auth/doLogin', doLogin);
