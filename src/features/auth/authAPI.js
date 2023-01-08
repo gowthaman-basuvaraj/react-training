@@ -1,8 +1,5 @@
 const loginUrl = `${process.env.REACT_APP_API_BASE_URL}/auth/validate`;
 const createUserUrl = `${process.env.REACT_APP_API_BASE_URL}/auth/create`;
-const PostOptions = {
-  method: 'POST',
-};
 
 export async function doLogin({ user, pass }) {
   let body = new FormData();
@@ -10,7 +7,7 @@ export async function doLogin({ user, pass }) {
   body.append('pass', pass);
 
   let step1 = await fetch(loginUrl, {
-    ...PostOptions,
+    method: 'POST',
     body,
   });
 
@@ -32,7 +29,7 @@ export async function createUser({ user, pass }) {
   body.append('pass', pass);
 
   let step1 = await fetch(createUserUrl, {
-    ...PostOptions,
+    method: 'POST',
     body,
   });
 
