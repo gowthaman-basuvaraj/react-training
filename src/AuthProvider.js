@@ -1,13 +1,22 @@
 import { useSelector } from 'react-redux';
-import { userName } from './features/auth/authSlice';
-import React from 'react';
+import { isLoggedIn, userName } from './features/auth/authSlice';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = React.createContext(null);
 export const AuthProvider = ({ children }) => {
   const token = useSelector(userName);
+  const loginStatus = useSelector(isLoggedIn);
+  const navigate = useNavigate();
 
   const value = { token };
+
+  useEffect(() => {
+    if (loginStatus) {
+      navigate('/dashboard');
+    }
+  }, [loginStatus]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
