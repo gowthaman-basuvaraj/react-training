@@ -6,6 +6,7 @@ const initialState = {
   userCreationStatus: false,
   status: 'idle',
   loginError: null,
+  userName: '',
 };
 
 const loginUrl = `${process.env.REACT_APP_API_BASE_URL}/auth/validate`;
@@ -25,7 +26,10 @@ const doLogin = async ({ user, pass }) => {
   });
 
   if (step1.ok) {
-    return await step1.json();
+    return {
+      ...(await step1.json()),
+      user,
+    };
   } else {
     return {
       error: 'Login Failed',
@@ -44,7 +48,10 @@ const createUser = async ({ user, pass }) => {
   });
 
   if (step1.ok) {
-    return await step1.json();
+    return {
+      ...(await step1.json()),
+      user,
+    };
   } else {
     return {
       error: 'User Creation Failed',
@@ -71,11 +78,17 @@ export const authSlice = createSlice({
         state.loginError = null;
         state.loginStatus = false;
       })
+      .addCase(doLoginAsync.rejected, (state) => {
+        state.status = 'idle';
+        state.loginError = null;
+        state.loginStatus = false;
+      })
       .addCase(doLoginAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         if (action.payload.authToken) {
           state.loginStatus = true;
           state.authToken = action.payload.authToken;
+          state.userName = action.payload.user;
         } else {
           state.loginError = action.payload.error;
         }
@@ -85,10 +98,16 @@ export const authSlice = createSlice({
         state.loginError = null;
         state.userCreationStatus = false;
       })
+      .addCase(doUserCreationAsync.rejected, (state) => {
+        state.status = 'idle';
+        state.loginError = null;
+        state.userCreationStatus = false;
+      })
       .addCase(doUserCreationAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         if (action.payload.status) {
           state.userCreationStatus = true;
+          state.userName = action.payload.user;
         } else {
           state.loginError = action.payload.error;
         }
@@ -101,5 +120,6 @@ export const { logout } = authSlice.actions;
 export const isLoggedIn = (state) => state.auth.loginStatus;
 export const loginProcess = (state) => state.auth.status;
 export const userCreated = (state) => state.auth.userCreationStatus;
+export const userName = (state) => state.auth.userName;
 
 export default authSlice.reducer;
