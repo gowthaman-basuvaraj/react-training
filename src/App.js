@@ -6,18 +6,19 @@ import { Dashboard } from './Dashboard';
 import { NoMatch } from './NoMatch';
 import { Navigation } from './Navigation';
 import { ProtectedRoute } from './ProtectedRoute';
+import { Login } from './features/auth/Login';
 
 const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <h1 className="text-3xl font-bold underline">Hello world!</h1>
-
         <Navigation />
+        <h1 className="text-3xl font-bold underline">Hello world!</h1>
 
         <Routes>
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
+          <Route path="login" element={<Login />} />
 
           <Route
             path="dashboard"

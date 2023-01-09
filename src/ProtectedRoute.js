@@ -8,7 +8,7 @@ export const ProtectedRoute = ({ children }) => {
   const token = useSelector(userName);
 
   if (!token) {
-    return <Navigate to="/home" replace />;
+    return <Navigate to="/login" replace />;
   }
 
   return children;
