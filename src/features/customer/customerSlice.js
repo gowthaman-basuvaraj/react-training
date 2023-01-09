@@ -20,6 +20,13 @@ export const customerSlice = createSlice({
   name: 'customer',
   initialState,
   reducers: {
+    newCustomer(state) {
+      state.newCustomer = makeNewCustomer();
+      state.customerPopUp = true;
+    },
+    closeCustomerPopUp(state) {
+      state.customerPopUp = false;
+    },
     editCustomer(state, action) {
       state.newCustomer = _.cloneDeep(action.payload);
       state.customerPopUp = true;
@@ -30,7 +37,7 @@ export const customerSlice = createSlice({
   },
 });
 
-export const { editCustomer, setCustomers } = customerSlice.actions;
+export const { editCustomer, setCustomers, newCustomer, closeCustomerPopUp } = customerSlice.actions;
 export const customers = (state) => state.customer.customers;
 
 export default customerSlice.reducer;
