@@ -1,5 +1,6 @@
-const loginUrl = `${process.env.REACT_APP_API_BASE_URL}/auth/validate`;
-const createUserUrl = `${process.env.REACT_APP_API_BASE_URL}/auth/create`;
+const baseUrl = process.env.REACT_APP_API_BASE_URL || ''
+const loginUrl = `${baseUrl}/auth/validate`;
+const createUserUrl = `${baseUrl}/auth/create`;
 
 export async function doLogin({ user, pass }) {
   let body = new FormData();

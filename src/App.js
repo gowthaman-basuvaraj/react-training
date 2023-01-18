@@ -13,14 +13,11 @@ import { InvoiceHome } from './features/invoice/InvoiceHome';
 import { CustomerDetailPage } from './features/customer/CustomerDetailPage';
 import { SSEProvider } from 'react-hooks-sse';
 
-const sseUrl = `${process.env.REACT_APP_API_BASE_URL}/updates`;
+const sseUrl = `${process.env.REACT_APP_API_BASE_URL || ''}/updates`;
 
 const App = () => {
   const { isError } = useGetCustomersQuery();
-
-
   return (
-
     <BrowserRouter>
       <SSEProvider endpoint={sseUrl}>
         <AuthProvider>

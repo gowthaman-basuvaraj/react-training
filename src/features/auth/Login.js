@@ -28,7 +28,6 @@ export const Login = () => {
     if (loginStatus) {
       console.log('the user is now loggedIn', userLandingPage);
       navigate(userLandingPage)
-
     }
   }, [loginStatus]);
 
