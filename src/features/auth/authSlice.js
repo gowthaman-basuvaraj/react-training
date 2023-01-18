@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { doLogin, createUser } from './authAPI';
+import { createUser, doLogin } from './authAPI';
 
 const initialState = {
   authToken: null,
@@ -11,6 +11,7 @@ const initialState = {
   userName: '',
   landingPage: '/',
   idleTime: 0,
+  sseConnected: false
 };
 
 export const doLoginAsync = createAsyncThunk('auth/doLogin', doLogin);
@@ -27,6 +28,9 @@ export const authSlice = createSlice({
       state.authToken = null;
       state.loginStatus = false;
     },
+    sseStatus(state, action) {
+      state.sseConnected = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -73,7 +77,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { logout, setLandingPage } = authSlice.actions;
+export const { logout, setLandingPage, sseStatus } = authSlice.actions;
 
 export const isLoggedIn = (state) => state.auth.loginStatus;
 export const loginProcess = (state) => state.auth.status;
@@ -82,5 +86,6 @@ export const userName = (state) => state.auth.userName;
 export const creationError = (state) => state.auth.creationError;
 export const loginError = (state) => state.auth.loginError;
 export const landingPage = (state) => state.auth.landingPage;
+export const sseConnectStatus = (state) => state.auth.sseConnected;
 
 export default authSlice.reducer;

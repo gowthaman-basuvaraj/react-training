@@ -16,7 +16,8 @@ export const Home = () => {
                                       className='btn info'>
     SignIn
   </button>;
-  const customers = token ? <Link to={'/customers'} className={'link'}>Customers Page</Link> : <></>
+  const customers = token ?
+    <Link to={'/customers'} className={'link'}>Customers Page</Link> : <></>;
   return (
     <>
       <h2>Welcome Home {who}</h2>

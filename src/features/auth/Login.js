@@ -1,20 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { creationError, doLoginAsync, doUserCreationAsync, isLoggedIn, loginError, userCreated } from './authSlice';
+import {
+  creationError,
+  doLoginAsync,
+  doUserCreationAsync,
+  isLoggedIn,
+  landingPage,
+  loginError,
+  userCreated,
+} from './authSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
 
   const isDev = process.env.NODE_ENV === 'development';
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const loginStatus = useSelector(isLoggedIn);
   const userCreationStatus = useSelector(userCreated);
+  const userLandingPage = useSelector(landingPage);
   const loginErrorMsg = useSelector(loginError);
   const userCreationErrMsg = useSelector(creationError);
   const [errMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
+    console.log('userLoginStatus', loginStatus, userLandingPage)
     if (loginStatus) {
-      console.log('the user is now loggedIn');
+      console.log('the user is now loggedIn', userLandingPage);
+      navigate(userLandingPage)
+
     }
   }, [loginStatus]);
 
