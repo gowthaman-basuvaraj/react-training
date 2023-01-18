@@ -9,6 +9,8 @@ const initialState = {
   loginError: null,
   creationError: null,
   userName: '',
+  landingPage: '/',
+  idleTime: 0,
 };
 
 export const doLoginAsync = createAsyncThunk('auth/doLogin', doLogin);
@@ -18,6 +20,9 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    setLandingPage(state, action) {
+      state.landingPage = action.payload
+    },
     logout: (state) => {
       state.authToken = null;
       state.loginStatus = false;
@@ -68,7 +73,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, setLandingPage } = authSlice.actions;
 
 export const isLoggedIn = (state) => state.auth.loginStatus;
 export const loginProcess = (state) => state.auth.status;
@@ -76,5 +81,6 @@ export const userCreated = (state) => state.auth.userCreationStatus;
 export const userName = (state) => state.auth.userName;
 export const creationError = (state) => state.auth.creationError;
 export const loginError = (state) => state.auth.loginError;
+export const landingPage = (state) => state.auth.landingPage;
 
 export default authSlice.reducer;

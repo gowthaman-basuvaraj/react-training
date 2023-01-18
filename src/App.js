@@ -46,7 +46,10 @@ const App = () => {
               <CustomerHome />
             </ProtectedRoute>} />
 
-            <Route path='detail/:id' element={<CustomerDetailPage/>} />
+            <Route path='detail/:id' element={
+              <ProtectedRoute>
+                <CustomerDetailPage />
+              </ProtectedRoute>} />
           </Route>
 
           <Route

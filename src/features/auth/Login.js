@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { creationError, doLoginAsync, doUserCreationAsync, isLoggedIn, loginError, userCreated } from './authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
 
-  const isDev = process.env.NODE_ENV === 'development'
-  const dispatch = useDispatch()
+  const isDev = process.env.NODE_ENV === 'development';
+  const dispatch = useDispatch();
   const loginStatus = useSelector(isLoggedIn);
   const userCreationStatus = useSelector(userCreated);
   const loginErrorMsg = useSelector(loginError);
   const userCreationErrMsg = useSelector(creationError);
-
-  const navigate = useNavigate();
   const [errMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
     if (loginStatus) {
-      navigate('/');
+      console.log('the user is now loggedIn');
     }
   }, [loginStatus]);
 
@@ -39,7 +36,7 @@ export const Login = () => {
 
   const [account, setAccount] = useState({
     user: isDev ? 'gowthaman.b' : '',
-    pass: isDev ? 'password': '',
+    pass: isDev ? 'password' : '',
   });
   const setValue = (who, what) => {
     let newAccount = Object.assign({}, account);
@@ -49,12 +46,12 @@ export const Login = () => {
 
   const createAccount = () => {
     if (account.user && account.pass) {
-      dispatch(doUserCreationAsync(account))
+      dispatch(doUserCreationAsync(account));
     }
   };
   const loginToAccount = () => {
     if (account.user && account.pass) {
-      dispatch(doLoginAsync(account))
+      dispatch(doLoginAsync(account));
     }
   };
 

@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { isLoggedIn, userName } from './features/auth/authSlice';
+import { isLoggedIn, landingPage, userName } from './features/auth/authSlice';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
@@ -9,12 +9,14 @@ export const AuthProvider = ({ children }) => {
   const token = useSelector(userName);
   const loginStatus = useSelector(isLoggedIn);
   const navigate = useNavigate();
+  const landingPageLoc = useSelector(landingPage);
+
 
   const value = { token };
 
   useEffect(() => {
     if (loginStatus) {
-      navigate('/dashboard');
+      navigate(landingPageLoc);
     }
   }, [loginStatus]);
 
