@@ -4,7 +4,7 @@ import _ from 'lodash';
 function makeNewCustomer() {
   return {
     name: '',
-    age: 0,
+    age: '',
     address: '',
     mobile: '',
   };
@@ -39,5 +39,6 @@ export const customerSlice = createSlice({
 
 export const { editCustomer, setCustomers, newCustomer, closeCustomerPopUp } = customerSlice.actions;
 export const customers = (state) => state.customer.customers;
+export const customerToBeEdited = (state) => state.customer.newCustomer;
 
 export default customerSlice.reducer;

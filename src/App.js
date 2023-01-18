@@ -7,14 +7,22 @@ import { NoMatch } from './NoMatch';
 import { Navigation } from './Navigation';
 import { ProtectedRoute } from './ProtectedRoute';
 import { Login } from './features/auth/Login';
+import { CustomerHome } from './features/customer/CustomerHome';
+import { useGetCustomersQuery } from './features/customer/customerAPI';
 
 const App = () => {
+  const { isError } = useGetCustomersQuery();
+
   return (
     <BrowserRouter>
       <AuthProvider>
         <Navigation />
-        <h1 className="text-3xl font-bold underline">Hello world!</h1>
+        <hr className={'my-2'}/>
+        <h1 className="text-3xl font-bold mb-4">React, Redux, RTK Query</h1>
 
+        {isError &&  <div className='my-4 text-white bg-red-500 p-4 rounded'>
+          Unable to Fetch Customers, Have you Logged in Yet?
+        </div>}
         <Routes>
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
@@ -25,6 +33,15 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="customers"
+            element={
+              <ProtectedRoute>
+                <CustomerHome />
               </ProtectedRoute>
             }
           />

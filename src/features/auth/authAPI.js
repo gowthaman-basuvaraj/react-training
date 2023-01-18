@@ -4,7 +4,7 @@ const createUserUrl = `${process.env.REACT_APP_API_BASE_URL}/auth/create`;
 export async function doLogin({ user, pass }) {
   let body = new FormData();
   body.append('user', user);
-  body.append('pass', pass);
+  body.append('auth', pass);
 
   let step1 = await fetch(loginUrl, {
     method: 'POST',
@@ -26,7 +26,7 @@ export async function doLogin({ user, pass }) {
 export async function createUser({ user, pass }) {
   let body = new FormData();
   body.append('user', user);
-  body.append('pass', pass);
+  body.append('auth', pass);
 
   let step1 = await fetch(createUserUrl, {
     method: 'POST',

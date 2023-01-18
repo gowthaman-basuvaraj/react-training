@@ -4,7 +4,7 @@ export const customerApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getCustomers: builder.query({
       query: () => '/customers',
-      providesTags: (result = [], error, arg) => [
+      providesTags: (result = []) => [
         TagTypes.Customer,
         ...result.map(({ id }) => ({
           type: TagTypes.Customer,
@@ -27,7 +27,7 @@ export const customerApiSlice = apiSlice.injectEndpoints({
     }),
     updateCustomer: builder.mutation({
       query: (customer) => ({
-        url: '/customers',
+        url: `/customers/${customer.id}`,
         method: 'PATCH',
         // Include the entire customer object as the body of the request
         body: customer,

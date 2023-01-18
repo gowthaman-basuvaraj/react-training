@@ -7,6 +7,7 @@ const initialState = {
   userCreationStatus: false,
   status: 'idle',
   loginError: null,
+  creationError: null,
   userName: '',
 };
 
@@ -46,12 +47,12 @@ export const authSlice = createSlice({
       })
       .addCase(doUserCreationAsync.pending, (state) => {
         state.status = 'loading';
-        state.loginError = null;
+        state.creationError = null;
         state.userCreationStatus = false;
       })
       .addCase(doUserCreationAsync.rejected, (state) => {
         state.status = 'idle';
-        state.loginError = null;
+        state.creationError =  null
         state.userCreationStatus = false;
       })
       .addCase(doUserCreationAsync.fulfilled, (state, action) => {
@@ -59,8 +60,9 @@ export const authSlice = createSlice({
         if (action.payload.status) {
           state.userCreationStatus = true;
           state.userName = action.payload.user;
+          state.creationError =  null
         } else {
-          state.loginError = action.payload.error;
+          state.creationError = action.payload.error;
         }
       });
   },
@@ -72,5 +74,7 @@ export const isLoggedIn = (state) => state.auth.loginStatus;
 export const loginProcess = (state) => state.auth.status;
 export const userCreated = (state) => state.auth.userCreationStatus;
 export const userName = (state) => state.auth.userName;
+export const creationError = (state) => state.auth.creationError;
+export const loginError = (state) => state.auth.loginError;
 
 export default authSlice.reducer;

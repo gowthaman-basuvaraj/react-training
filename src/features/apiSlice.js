@@ -12,9 +12,9 @@ export const apiSlice = createApi({
     baseUrl,
     prepareHeaders: (headers, { getState }) => {
       // By default, if we have a token in the store, let's use that for authenticated requests
-      const token = getState().auth.authToken;
-      if (token) {
-        headers.set('authentication', `Bearer ${token}`);
+      const token = getState().auth;
+      if (token && token.authToken) {
+        headers.set('Authorization', `Bearer ${token.authToken}`);
       }
       return headers;
     },
