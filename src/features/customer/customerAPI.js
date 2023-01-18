@@ -4,6 +4,13 @@ export const customerApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getCustomers: builder.query({
       query: () => '/customers',
+      transformResponse: (response) => {
+        console.log('transform response', response);
+        return response.map(r => ({
+          ...r,
+          underAged: r['age'] ? +r['age'] < 18 : false,
+        }));
+      },
       providesTags: (result = []) => [
         TagTypes.Customer,
         ...result.map(({ id }) => ({

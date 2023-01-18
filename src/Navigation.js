@@ -25,6 +25,7 @@ export const Navigation = () => {
         </NavLink>
         <NavLink to="/dashboard" className='nav-link'>Dashboard</NavLink>
         <NavLink to="/customers" className='nav-link'>Customers {token && (<span>({data.length})</span>)} </NavLink>
+        <NavLink to="/invoices" className='nav-link'>Invoices </NavLink>
       </div>
       {token && (
         <button type="button" onClick={onLogout} className={'nav-link'}>

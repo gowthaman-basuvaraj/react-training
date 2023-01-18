@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import _ from 'lodash';
 
-function makeNewCustomer() {
+export function makeNewCustomer() {
   return {
+    id: null,
     name: '',
     age: '',
     address: '',

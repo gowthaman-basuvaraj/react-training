@@ -9,6 +9,8 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { Login } from './features/auth/Login';
 import { CustomerHome } from './features/customer/CustomerHome';
 import { useGetCustomersQuery } from './features/customer/customerAPI';
+import { InvoiceHome } from './features/invoice/InvoiceHome';
+import { CustomerDetailPage } from './features/customer/CustomerDetailPage';
 
 const App = () => {
   const { isError } = useGetCustomersQuery();
@@ -17,19 +19,19 @@ const App = () => {
     <BrowserRouter>
       <AuthProvider>
         <Navigation />
-        <hr className={'my-2'}/>
-        <h1 className="text-3xl font-bold mb-4">React, Redux, RTK Query</h1>
+        <hr className={'my-2'} />
+        <h1 className='text-3xl font-bold mb-4'>React, Redux, RTK Query</h1>
 
-        {isError &&  <div className='my-4 text-white bg-red-500 p-4 rounded'>
+        {isError && <div className='my-4 text-white bg-red-500 p-4 rounded'>
           Unable to Fetch Customers, Have you Logged in Yet?
         </div>}
         <Routes>
           <Route index element={<Home />} />
-          <Route path="home" element={<Home />} />
-          <Route path="login" element={<Login />} />
+          <Route path='home' element={<Home />} />
+          <Route path='login' element={<Login />} />
 
           <Route
-            path="dashboard"
+            path='dashboard'
             element={
               <ProtectedRoute>
                 <Dashboard />
@@ -38,15 +40,25 @@ const App = () => {
           />
 
           <Route
-            path="customers"
+            path='customers'>
+
+            <Route index element={<ProtectedRoute>
+              <CustomerHome />
+            </ProtectedRoute>} />
+
+            <Route path='detail/:id' element={<CustomerDetailPage/>} />
+          </Route>
+
+          <Route
+            path='invoices'
             element={
               <ProtectedRoute>
-                <CustomerHome />
+                <InvoiceHome />
               </ProtectedRoute>
             }
           />
 
-          <Route path="*" element={<NoMatch />} />
+          <Route path='*' element={<NoMatch />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

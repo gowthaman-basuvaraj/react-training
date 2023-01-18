@@ -22,10 +22,13 @@ export const CustomerHome = () => {
       <CustomerList></CustomerList>
       <CustomerForm></CustomerForm>
     </div>
-    <div className='flex justify-around mt-16 border-t-4 py-16'>
-      {
-        data.slice(0, 5).map(c => (<CustomerDetail key={c.id} id={c.id}></CustomerDetail>))
-      }
+    <div className='flex flex-col mt-16 border-t-4 py-16'>
+      <h4 className={'w-full mb-8 text-xl text-purple-500 text-center'}>Top 5 Customers</h4>
+      <div className='flex justify-around'>
+        {
+          data.slice(0, 5).map(c => (<CustomerDetail key={c.id} id={c.id}></CustomerDetail>))
+        }
+      </div>
     </div>
   </div>;
 };

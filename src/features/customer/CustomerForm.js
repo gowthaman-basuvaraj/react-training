@@ -1,16 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { customerToBeEdited, newCustomer } from './customerSlice';
+import { customerToBeEdited, makeNewCustomer, newCustomer } from './customerSlice';
 import React, { useEffect, useState } from 'react';
 import { useAddNewCustomerMutation, useUpdateCustomerMutation } from './customerAPI';
 
 export const CustomerForm = () => {
   const customerToEdit = useSelector(customerToBeEdited);
   const dispatch = useDispatch();
-  const [customer, setCustomer] = useState({
-    name: '',
-    age: '',
-    phone: '',
-  });
+  const [customer, setCustomer] = useState(makeNewCustomer());
   const [saveCustomerCall, { isLoading, isSuccess, isError }] = useAddNewCustomerMutation();
   const [updateCustomerCall] = useUpdateCustomerMutation();
   const setValue = (who, what) => {
@@ -19,7 +15,7 @@ export const CustomerForm = () => {
     setCustomer(newCustomer);
   };
   useEffect(() => {
-    console.log(`isLoading = ${isLoading}, isSuccess = ${isSuccess}, isError = ${isError}`);
+    console.log(`CustomerSave isLoading = ${isLoading}, isSuccess = ${isSuccess}, isError = ${isError}`);
   }, [isLoading, isSuccess, isError]);
 
   useEffect(() => {

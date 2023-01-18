@@ -4,6 +4,7 @@ const baseUrl = `${process.env.REACT_APP_API_BASE_URL}/api`;
 
 export const TagTypes = {
   Customer: 'CUSTOMER',
+  Invoice: 'INVOICE'
 };
 
 export const apiSlice = createApi({
@@ -20,6 +21,6 @@ export const apiSlice = createApi({
     },
   }),
   //this is to Cache the requests, individual end-points will set what to cache and what to invalidate
-  tagTypes: [...Object.keys(TagTypes)],
+  tagTypes: [...Object.values(TagTypes)],
   endpoints: () => ({}),
 });
