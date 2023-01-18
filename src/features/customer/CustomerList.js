@@ -2,10 +2,8 @@ import { useDispatch } from 'react-redux';
 import { useGetCustomersQuery } from './customerAPI';
 import React from 'react';
 import { editCustomer } from './customerSlice';
-import classNames from 'classnames';
 import { Rupee } from '../utils';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { AgeDisplay } from './AgeDisplay';
 
 export const CustomerList = () => {
   const dispatch = useDispatch();
@@ -32,14 +30,8 @@ export const CustomerList = () => {
       {data.map(d => <tr key={d.id}>
         <td className={'p-2 border text-center'}>{d.id}</td>
         <td className={'p-2 border text-center'}>{d.name}</td>
-        <td className={classNames({
-          'p-2': true,
-          border: true,
-          'text-center': true,
-          'text-red-500': d.underAged,
-        })}>
-          {d.underAged && <span className={'text-red-600 mr-2'}><FontAwesomeIcon icon={faExclamationTriangle} /></span>}
-          {d.age}
+        <td className={'p-2 border text-center'}>
+          <AgeDisplay age={d.age} underAged={d.underAged}/>
         </td>
         <td className={'p-2 border text-center'}>{d.phone}</td>
         <td className={'p-2 border text-center'}>{d.address}</td>

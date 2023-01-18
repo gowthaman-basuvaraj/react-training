@@ -1,15 +1,18 @@
 import { apiSlice, TagTypes } from '../apiSlice';
 
+function transformCustomer(r) {
+  return {
+    ...r,
+    underAged: r['age'] ? +r['age'] < 18 : false,
+  }
+}
 export const customerApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getCustomers: builder.query({
       query: () => '/customers',
       transformResponse: (response) => {
         console.log('transform response', response);
-        return response.map(r => ({
-          ...r,
-          underAged: r['age'] ? +r['age'] < 18 : false,
-        }));
+        return response.map(r => transformCustomer(r));
       },
       providesTags: (result = []) => [
         TagTypes.Customer,
@@ -22,6 +25,10 @@ export const customerApiSlice = apiSlice.injectEndpoints({
     getCustomer: builder.query({
       query: (customerId) => `/customers/${customerId}`,
       providesTags: (result, error, arg) => [{ type: TagTypes.Customer, id: arg }],
+      transformResponse: (response) => {
+        console.log('single transform response', response)
+        return transformCustomer(response)
+      }
     }),
     addNewCustomer: builder.mutation({
       query: (customer) => ({

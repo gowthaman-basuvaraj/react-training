@@ -4,5 +4,5 @@ import { CustomerDetail } from './CustomerDetail';
 
 export function CustomerDetailPage() {
   const {id} = useParams()
-  return <CustomerDetail id={id} canEdit={false}></CustomerDetail>
+  return <CustomerDetail id={id} canEdit={false} showInvoices={true}></CustomerDetail>
 }

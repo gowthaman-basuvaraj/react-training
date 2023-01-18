@@ -5,8 +5,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useGetInvoicesQuery } from '../invoice/invoiceAPI';
 import { Rupee } from '../utils';
+import classNames from 'classnames';
+import { SimpleInvoiceDisplay } from './SimpleInvoiceDisplay';
+import { AgeDisplay } from './AgeDisplay';
 
-export const CustomerDetail = ({ id, canEdit = true }) => {
+export const CustomerDetail = ({ id, canEdit = true, showInvoices = false }) => {
   const { data: customer = {} } = useGetCustomerQuery(id);
   const { data: invoices = [] } = useGetInvoicesQuery({ customerId: `${id}` });
   const dispatch = useDispatch();
@@ -14,7 +17,14 @@ export const CustomerDetail = ({ id, canEdit = true }) => {
     dispatch(editCustomer(customer));
   };
   const amount = invoices.map(i => +i.invoiceValue).reduce((a, b) => a + b, 0);
-  return <div className={'flex flex-col border-2 p-4 w-1/6'}>
+  const classes = classNames({
+    'flex flex-col border-2 p-4': true,
+    'w-1/6': !showInvoices,
+    'w-full': showInvoices,
+  });
+
+  const invoiceList = invoices.map((i) => (<SimpleInvoiceDisplay key={i.id} invoice={i} />));
+  return <div className={classes}>
     <div className='flex justify-between mb-2 border-b-2 pb-2'>
       <span>ID</span>
       <span className={'ml-8 font-bold'}>{id}</span>
@@ -25,7 +35,9 @@ export const CustomerDetail = ({ id, canEdit = true }) => {
     </div>
     <div className='flex justify-between mb-2 border-b-2 pb-2'>
       <span>Age</span>
-      <span className={'ml-8 font-bold'}>{customer.age}</span>
+      <span className={'ml-8 font-bold'}>
+        <AgeDisplay age={customer.age} underAged={customer.underAged} />
+      </span>
     </div>
     <div className='flex justify-between mb-2 border-b-2 pb-2'>
       <span>Address</span>
@@ -46,10 +58,17 @@ export const CustomerDetail = ({ id, canEdit = true }) => {
       <button className={'ml-8 btn info'} onClick={editThis}>Edit</button>
     </div>
     }
+    {showInvoices && <div className={'flex flex-row'}>
+      <div className={'flex justify-center items-center'}>
+        <h4>Invoices</h4>
+      </div>
+      {invoiceList}
+    </div>}
   </div>;
 };
 
 CustomerDetail.propTypes = {
   id: PropTypes.any,
-  canEdit: PropTypes.bool
+  canEdit: PropTypes.bool,
+  showInvoices: PropTypes.bool,
 };
