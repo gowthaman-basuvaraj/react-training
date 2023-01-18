@@ -16,13 +16,25 @@ export const Home = () => {
                                       className='btn info'>
     SignIn
   </button>;
+
   const customers = token ?
-    <Link to={'/customers'} className={'link'}>Customers Page</Link> : <></>;
+    <Link to={'/customers'} className={'nav-link mr-2'}>Customers Page</Link> :
+    <div className={'mx-2'}>Login to See Link to Customer Page</div>;
+
+  const invoices = token ?
+    <Link to={'/invoices'} className={'nav-link ml-2'}>Invoices Page</Link> :
+    <div className={'mx-2'}>Login to see Link for Invoice Page</div>;
+
   return (
     <>
-      <h2>Welcome Home {who}</h2>
-      {btn}
-      {customers}
+      <h2 className={'text-2xl'}>Welcome Home {who}</h2>
+      <div className='my-4'>
+        {btn}
+      </div>
+      <div className='flex flex-row mt-4'>
+        {customers}
+        {invoices}
+      </div>
     </>
   );
 };

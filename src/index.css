@@ -3,7 +3,10 @@
 @tailwind utilities;
 
 #root {
-    @apply p-12
+    @apply p-2
+}
+#app {
+    @apply p-4
 }
 
 .btn {
@@ -17,7 +20,7 @@
     @apply text-lg px-3.5 py-2.5
 }
 .count {
-    @apply ring-2 ring-blue-600 bg-blue-500 text-white p-2 rounded
+    @apply ring-2 ring-blue-600 bg-blue-500 text-white p-2 rounded w-12 text-center
 }
 .nav-link {
     @apply text-indigo-800 hover:text-white hover:bg-indigo-600 rounded p-2

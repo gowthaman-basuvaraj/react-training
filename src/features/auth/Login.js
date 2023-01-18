@@ -88,6 +88,10 @@ export const Login = () => {
         {errMsg}
       </div>}
 
+      <div className='my-4 text-indigo-500 bg-indigo-100 p-4'>
+        After Login you will be redirected to <strong>{userLandingPage}</strong>
+      </div>
+
       <div className='flex'>
 
         <button className={'btn primary lg'} onClick={loginToAccount}>

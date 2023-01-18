@@ -36,6 +36,8 @@ export const CustomerForm = () => {
     }
   };
   return <div className={'flex flex-col'}>
+    <h2 className={'text-xl mb-4'}>New Customer</h2>
+
     <input value={customer.name || ''} onChange={e => setValue('name', e.target.value)} type={'text'}
            placeholder={'Name'}
            className={'mb-2 rounded-lg'} />

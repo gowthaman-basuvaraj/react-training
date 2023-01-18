@@ -4,6 +4,7 @@ import { CustomerList } from './CustomerList';
 import { CustomerCount } from './CustomerCount';
 import { useGetCustomersQuery } from './customerAPI';
 import { CustomerDetail } from './CustomerDetail';
+import { useParams } from 'react-router-dom';
 
 export const CustomerHome = () => {
   //3 components
@@ -11,6 +12,7 @@ export const CustomerHome = () => {
   //2. customer list
   //3. customer create
   const { data = [] } = useGetCustomersQuery();
+  const {condition} = useParams()
 
 
   return <div className={'border-2 flex flex-col mt-8 p-2'}>
@@ -18,8 +20,8 @@ export const CustomerHome = () => {
       Customers
     </h4>
     <div className={'flex flex-row justify-around p-2'}>
-      <CustomerCount className={'border-2'}></CustomerCount>
-      <CustomerList></CustomerList>
+      <CustomerCount filter={condition || 'all'}></CustomerCount>
+      <CustomerList filter={condition || 'all'}></CustomerList>
       <CustomerForm></CustomerForm>
     </div>
     <div className='flex flex-col mt-16 border-t-4 py-16'>
